@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        drawable="@drawable/ic_home"
+        text="@string/Home" />
+
+    <tab
+        drawable="@drawable/tournament"
+        text="@string/Contest" />
+
+    <tab
+        drawable="@drawable/user_white"
+        text="@string/Details" />
+
+    <tab
+        drawable="@drawable/ic_settings"
+        text="@string/Settings" />
+</tabs>

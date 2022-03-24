@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Battle Royal</string>
+
+    <string name="Home">Home</string>
+    <string name="Contest">Contest</string>
+    <string name="Details">Profile</string>
+    <string name="Leaderboard">Leaderboard</string>
+    <string name="Settings">Settings</string>
+    <string name="RoomAd">189355619754737_189403533083279</string>
+    <string name="roomActivityAd">189355619754737_214510820572550</string>
+    <string name="transactionActivityAd">189355619754737_214513333905632</string>
+    <string name="editUserAd">189355619754737_214510077239291</string>
+    <string name="TournamentDetailsAd">189355619754737_214512493905716</string>
+    <string name="TournamentRegAd">189355619754737_214512740572358</string>
+    <string name="TournamentRoomAd">189355619754737_214513023905663</string>
+    <string name="supportActAd">189355619754737_214512287239070</string>
+    <string name="slotListAd">189355619754737_214512033905762</string>
+    <string name="rulesAd">189355619754737_214511690572463</string>
+    <string name="earnCoinAd">ca-app-pub-8613109754135289/7478805972</string>
+
+    <string-array name="tierList">
+        <item>T1</item>
+        <item>T2</item>
+        <item>T3</item>
+    </string-array>
+
+    <string-array name="typeList">
+        <item>result</item>
+        <item>slotlist</item>
+        <item>fix</item>
+    </string-array>
+    <string-array name="tournamentList">
+        <item>tournament</item>
+    </string-array>
+    <string-array name="gameList">
+        <item>bgmi</item>
+        <item>freefire</item>
+        <item>codm</item>
+        <item>valorant</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

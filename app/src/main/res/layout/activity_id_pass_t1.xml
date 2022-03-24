@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".Activities.IdPassT1Activity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Room ID will be provided prior 10minutes before starting"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/option_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Room Prize"
+                android:textColor="#5C5252"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/option_2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/option_unselected"
+                android:padding="10dp"
+                android:text="PRIZE"
+                android:textColor="#F60505"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/option_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Room ID:"
+                android:textColor="#5C5252"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/option_3"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/option_unselected"
+                android:padding="10dp"
+                android:text="ROOM ID"
+                android:textColor="#F60505"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/option_4"
+                app:layout_constraintEnd_toEndOf="@+id/option_2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/option_2"
+                app:layout_constraintTop_toBottomOf="@+id/option_2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Room Password"
+                android:textColor="#5C5252"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:id="@+id/option_4"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/option_unselected"
+                android:padding="10dp"
+                android:text="ROOM PASSWORD"
+                android:textColor="#F60505"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

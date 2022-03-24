@@ -1,0 +1,100 @@
+plugins {
+    id 'com.android.application'
+}
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    defaultConfig {
+        applicationId "com.yash.battleroyal"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 24
+        versionName "1.0.24"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation 'com.github.iammert:ReadableBottomBar:0.2'
+
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-config'
+    implementation 'com.google.firebase:firebase-dynamic-links'
+    implementation 'com.firebaseui:firebase-ui-firestore:4.3.1'
+   //implementation 'com.google.android.gms:play-services-ads:20.2.0'
+    //implementation 'com.google.ads.mediation:facebook:6.5.1.0'
+    //implementation 'com.facebook.android:audience-network-sdk:6.5.1'
+    //implementation 'com.google.android.ads:mediation-test-suite:2.0.0'
+    implementation 'androidx.annotation:annotation:1.3.0'
+    //implementation 'com.google.ads.mediation:adcolony:4.5.0.0'
+    //implementation 'com.adcolony:sdk:4.6.1'
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.1.0'
+    // appcompat-v7 is required
+    implementation 'com.zolad:zoominimageview:1.0.0'
+
+    implementation 'com.paytm.appinvokesdk:appinvokesdk:1.6.0'
+
+    // retrofit library
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    // Retrofit API Interceptor for Debuging
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+
+
+    implementation 'com.airbnb.android:lottie:3.4.1'
+    implementation 'com.cuberto:liquid-swipe:1.0.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.10"
+
+   // implementation 'com.ironsource.sdk:mediationsdk:7.1.8'
+
+
+}

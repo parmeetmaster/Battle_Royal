@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.yash.battleroyal">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Activities.Tournament.TournamentIDPActivity"></activity>
+        <activity android:name=".Activities.login.ForgetPassNewActivity" />
+        <activity android:name=".Activities.login.RegisterNewActivity" />
+        <activity android:name=".Activities.login.LoginNewActivity" />
+        <activity android:name=".Activities.Organizer.NewIdPassOrgPaidActivity" />
+        <activity android:name=".Activities.Organizer.NewPaidSelectOrgActivity" />
+        <activity android:name=".Activities.Organizer.ContestRegisterOrgActivity" />
+        <activity android:name=".Activities.Organizer.NewPaidContestOrgIndActivity" />
+        <activity android:name=".Activities.Organizer.NewPaidContestOrgActivity" />
+        <activity android:name=".Activities.Organizer.TournamentJoinedOrgActivity" />
+        <activity android:name=".Activities.Organizer.TournamentIdResultOrgActivity" />
+        <activity android:name=".Activities.Organizer.TournamentRegistrationOrgActivity" />
+        <activity android:name=".Activities.Organizer.NewTournamentOrgActivity" />
+        <activity android:name=".Activities.Organizer.NewResultOrgActivity" />
+        <activity android:name=".Activities.Organizer.NewSlotListOrgActivity" />
+        <activity android:name=".Activities.Organizer.NewIdPassOrgActivity" />
+        <activity android:name=".Activities.Organizer.MatchJoinedT1Activity" />
+        <activity android:name=".Activities.Organizer.MatchJoinedT3PlayersActivity" />
+        <activity android:name=".Activities.Organizer.MatchJoinedT2PlayersActivity" />
+        <activity android:name=".Activities.Organizer.OrgMatchActivity" />
+        <activity android:name=".Activities.Organizer.NewTierMatchActivity" />
+        <activity android:name=".Activities.AdminActivity" />
+        <activity android:name=".Activities.ContestJoinedPlayersActivity" />
+        <activity android:name=".Activities.PaymentAddedActivity" />
+        <activity android:name=".Activities.NotificationActivity" />
+        <activity android:name=".Activities.WithdrawActivity" />
+        <activity android:name=".Activities.PaytmActivity" />
+        <activity android:name=".Activities.IdPassContestActivity" />
+        <activity android:name=".Activities.LeaderboardActivity" />
+        <activity android:name=".Activities.ContactUsActivity" />
+        <activity android:name=".Activities.ContestRegisterActivity" />
+        <activity android:name=".Activities.ContestDetailsActivity" />
+        <activity android:name=".Activities.TournamentFixturesActivity" />
+        <activity android:name=".Activities.CrewActivity" />
+        <activity android:name=".Activities.MatchResultT1Activity" />
+        <activity android:name=".Activities.MatchResultT2Activity" />
+        <activity android:name=".Activities.SlotListT1Activity" />
+        <activity android:name=".Activities.SlotListT2Activity" />
+        <activity android:name=".Activities.IdPassT1Activity" />
+        <activity android:name=".Activities.IdPassT2Activity" />
+        <activity android:name=".Activities.Match_Details_T1" />
+        <activity android:name=".Activities.Match_Details_T2" />
+        <activity android:name=".Activities.TournamentResultActivity" />
+        <activity android:name=".Activities.MatchResultActivity" />
+        <activity android:name=".Activities.MatchSlotListActivity" />
+        <activity android:name=".Activities.IdPassActivity" />
+        <activity android:name=".Activities.RulesActivity" />
+        <activity android:name=".Activities.TournamentRoomActivity" />
+        <activity android:name=".Activities.TournamentRegistrationActivity" />
+        <activity android:name=".Activities.SlotListActivity" />
+        <activity android:name=".Activities.TournamentActivity" />
+        <activity android:name=".Activities.ForgetPasswordActivity" />
+        <activity
+            android:name=".Activities.Splash.SplashNewActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.SplashActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9753326183722508~7334327550" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".Activities.EditUserActivity" />
+        <activity android:name=".Activities.RoomActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.Match_Details" />
+        <activity android:name=".Activities.MainActivity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,108 @@
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".Activities.Splash.SplashNewActivity">
+
+        <ImageView
+            android:id="@+id/img"
+            android:elevation="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="900dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bgsplash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:elevation="2dp"
+            android:src="@drawable/pubg"
+            app:layout_constraintVertical_bias=".1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/app_name"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:src="@drawable/newlogo"
+            android:elevation="2dp"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/icon"
+            app:lottie_autoPlay="true"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            app:flow_verticalBias="0"
+            app:lottie_rawRes="@raw/splash"
+            android:layout_marginBottom="20dp"
+            android:elevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_name"/>
+
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/adamina"
+            android:gravity="center"
+            android:layout_marginStart="85dp"
+            android:text="Current Version"
+            android:textColor="@color/color_white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:elevation="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_name" />
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/adamina"
+            android:layout_marginEnd="120dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="21"
+            android:elevation="100dp"
+            android:textColor="@color/color_white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
+
+        <com.cuberto.liquid_swipe.LiquidPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

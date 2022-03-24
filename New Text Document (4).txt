@@ -1,0 +1,281 @@
+package com.yash.battleroyal.Activities;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.yash.battleroyal.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ReferralActivity extends AppCompatActivity {
+
+    TextView createLink, ShareLink;
+    private Uri mInvitationUrl;
+
+    public void createLink(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+//        String sharelinktext  = "https://battleroyal.page.link/?"+
+//                "link=http://www.brgp.in/battle-royal.apk"+
+//                //"&apn="+ getPackageName()+
+//                "&st="+"Battle Royal Games Platform - Play Esports Games & Win Cah Rewards"+
+//                "&si="+"https://www.brgp.in/?invitedby="+uid;
+        String link = "https://brgp.in/?invitedby=" + uid;
+        Log.e("main", "create link "+link);
+        Task<ShortDynamicLink> dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse(link))
+                .setDomainUriPrefix("https://battleroyal.page.link")
+                //.setDynamicLinkDomain("referearnpro.page.link")
+                // Open links with this app on Android
+                //.setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                // Open links with com.example.ios on iOS
+                //.setIosParameters(new DynamicLink.IosParameters.Builder("com.example.ios").build())
+                .buildShortDynamicLink()
+                .addOnSuccessListener(new OnSuccessListener<ShortDynamicLink>() {
+                    @Override
+                    public void onSuccess(ShortDynamicLink shortDynamicLink) {
+                        mInvitationUrl = shortDynamicLink.getShortLink();
+                        // ..
+
+                    }
+                });
+    }
+    public void sendInvitation(){
+
+        String referrerName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        String subject = String.format("%s wants you to play MyExampleGame!", referrerName);
+        String invitationLink = mInvitationUrl.toString();
+        String msg = "Let's play Battle Royal Games And Earn Prize upon winning together! Use my referrer link to get Free Rs 50 Bonus Cash: "
+                + invitationLink;
+        String msgHtml = String.format("<p>Let's play Battle Royal Games And Earn Prize upon winning together! Use my "
+                + "<a href=\"%s\">referrer link</a>!</p>", invitationLink);
+
+        // share app dialog
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, msg);
+        intent.putExtra(Intent.EXTRA_HTML_TEXT,  msgHtml);
+        intent.setType("text/plain");
+        startActivity(intent);
+
+//        Intent intent = new Intent(Intent.ACTION_SENDTO);
+//        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+//        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+//        intent.putExtra(Intent.EXTRA_TEXT, msg);
+//        intent.putExtra(Intent.EXTRA_HTML_TEXT, msgHtml);
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            startActivity(intent);
+//        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_referral);
+
+        createLink = findViewById(R.id.createlink);
+        ShareLink = findViewById(R.id.share);
+
+        createLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createLink();
+            }
+        });
+        ShareLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendInvitation();
+            }
+        });
+
+
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                        }
+                        //
+                        // If the user isn't signed in and the pending Dynamic Link is
+                        // an invitation, sign in the user anonymously, and record the
+                        // referrer's UID.
+                        //
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user == null
+                                && deepLink != null
+                                && deepLink.getBooleanQueryParameter("invitedby", false)) {
+                            String referrerUid = deepLink.getQueryParameter("invitedby");
+                            createAnonymousAccountWithReferrerInfo(referrerUid);
+                        }
+                    }
+                });
+    }
+
+    private void createAnonymousAccountWithReferrerInfo(final String referrerUid) {
+        FirebaseAuth.getInstance()
+                .signInAnonymously()
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        // Keep track of the referrer in the RTDB. Database calls
+                        // will depend on the structure of your app's RTDB.
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        DocumentReference userRecord = FirebaseFirestore.getInstance().collection("users").document(user.getUid());
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("referred_by", referrerUid);
+                        userRecord.update(map);
+                        //userRecord.child("referred_by").setValue(referrerUid);
+                        }
+                    });
+        }
+
+    public void getCredential(String email, String password) {
+
+        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
+    }
+
+    public void linkCredential(AuthCredential credential) {
+        // [START ddl_referral_link_cred]
+        FirebaseAuth.getInstance().getCurrentUser()
+                .linkWithCredential(credential)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        // Complete any post sign-up tasks here.
+                    }
+                });
+        // [END ddl_referral_link_cred]
+    }
+
+    public void rewardUser(AuthCredential credential) {
+        // [START ddl_referral_reward_user]
+        FirebaseAuth.getInstance().getCurrentUser()
+                .linkWithCredential(credential)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        // Complete any post sign-up tasks here.
+
+                        // Trigger the sign-up reward function by creating the
+                        // "last_signin_at" field. (If this is a value you want to track,
+                        // you would also update this field in the success listeners of
+                        // your Firebase Authentication signIn calls.)
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        DocumentReference userRecord = FirebaseFirestore.getInstance().collection("user").document(user.getUid());
+                        Map<String, Object> map1 = new HashMap<>();
+                        map1.put("last_signin_at", ServerValue.TIMESTAMP);
+                        userRecord.update(map1);
+                        //userRecord.child("last_signin_at").setValue(ServerValue.TIMESTAMP);
+                    }
+                });
+        // [END ddl_referral_reward_user]
+    }
+
+
+
+
+//
+////click -- link -- google play store -- inistalled/ or not  ----
+//        Uri dynamicLinkUri = dynamicLink.getUri();
+//        Log.e("main", "  Long refer "+ dynamicLink.getUri());
+//        //   https://referearnpro.page.link?apn=blueappsoftware.referearnpro&link=https%3A%2F%2Fwww.blueappsoftware.com%2F
+//        // apn  ibi link
+//        // manuall link
+//        String sharelinktext  = "https://battleroyal.page.link/?"+
+//                "link=http://www.brgp.in/battle-royal.apk"+
+//                //"&apn="+ getPackageName()+
+//                "&st="+"My Refer Link"+
+//                "&sd="+"Reward Coins 50"+
+//                "&si="+"https://www.brgp.in/battle-royal.apk";
+//        // shorten the link
+//        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+//                //.setLongLink(dynamicLink.getUri())
+//                .setLongLink(Uri.parse(sharelinktext))  // manually
+//                .buildShortDynamicLink()
+//                .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+//                        if (task.isSuccessful()) {
+//                            // Short link created
+//                            Uri shortLink = task.getResult().getShortLink();
+//                            Uri flowchartLink = task.getResult().getPreviewLink();
+//                            Log.e("main ", "short link "+ shortLink.toString());
+//                            // share app dialog
+//                            Intent intent = new Intent();
+//                            intent.setAction(Intent.ACTION_SEND);
+//                            intent.putExtra(Intent.EXTRA_TEXT,  shortLink.toString());
+//                            intent.setType("text/plain");
+//                            startActivity(intent);
+//                        } else {
+//                            // Error
+//                            // ...
+//                            Log.e("main", " error "+task.getException() );
+//                        }
+//                    }
+//                });
+//    }
+
+    }
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="center"
+    tools:context=".Activities.ReferralActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:id="@+id/createlink"
+        android:text="create link"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:id="@+id/share"
+        android:text="Share Link"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
